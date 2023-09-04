@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Копировать текст</title>
+</head>
+<body>
+    <p class="copyable-text">Текст 1, который нужно скопировать</p>
+    <button class="copy-button">Копировать Текст 1</button>
+
+    <p class="copyable-text">Текст 2, который нужно скопировать</p>
+    <button class="copy-button">Копировать Текст 2</button>
+
+    <script>
+        const copyButtons = document.querySelectorAll(".copy-button");
+        const copyableTexts = document.querySelectorAll(".copyable-text");
+
+        copyButtons.forEach((button, index) => {
+            button.addEventListener("click", function() {
+                const textToCopy = copyableTexts[index].textContent;
+                
+                const tempInput = document.createElement("input");
+                tempInput.value = textToCopy;
+
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                tempInput.setSelectionRange(0, 99999);
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+
+                alert("Текст скопирован: " + textToCopy);
+            });
+        });
+    </script>
+</body>
+</html>
